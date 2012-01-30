@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../jquery-splitView.css" type="text/css" media="screen" charset="utf-8">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../jquery-splitView.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        var splitView = $("#split-view").splitView({
+          noTableDataMessage: "No messages",
+          noDetailDataMessage: "Select an item on the left to show it",
+          tableViewDataSource: "data.json",
+          dataReceived: function(data) {
+            for (i in data.messages) {
+              splitView.addTableViewRow(data.messages[i].title, data.messages[i].message.substr(0, 100), data.messages[i].date, { fullText: data.messages[i].message });
+            }
+          },
+          rowClicked: function(data) {
+            splitView.loadDetail(data.fullText);
+          }
+        });
+      });
+    </script>
+    <div id="split-view"></div>
+  </body>
+</html>
